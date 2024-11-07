@@ -94,3 +94,57 @@ INSERT INTO tb_espectadores (nome, idade, genero_favorito, avaliacao, id_filme, 
 ('Rafael Melo', 29, 'Crime', 8.3, 7, '2023-12-04'),
 ('Elisa Nogueira', 20, 'Fantasia', 8.8, 8, '2023-12-05'),
 ('Eduardo Tavares', 28, 'Aventura', 9.2, 15, '2023-12-06');
+
+-- CONSULTAS
+
+-- Exercício 1
+SELECT titulo, ano_lancamento FROM tb_filmes;
+
+-- Exercício 2
+SELECT nome, idade FROM tb_espectadores
+WHERE avaliacao > 9;
+
+-- Exercício 3
+SELECT titulo, duracao FROM tb_filmes
+WHERE genero = "Ficção Científica" AND duracao > 120;
+
+-- Exercício 4
+SELECT tb_espectadores.nome, tb_filmes.titulo 
+FROM tb_espectadores JOIN tb_filmes
+ON tb_espectadores.id_filme = tb_filmes.id_filme;
+
+-- Exercício 5
+SELECT tb_filmes.titulo FROM tb_filmes 	LEFT JOIN tb_espectadores
+ON tb_espectadores.id_filme = tb_filmes.id_filme
+WHERE tb_espectadores.id_filme IS NULL;
+
+-- Exercício 6
+SELECT tb_filmes.genero, COUNT(tb_espectadores.id_filme) AS espectadores 
+FROM tb_filmes JOIN tb_espectadores
+ON tb_espectadores.id_filme = tb_filmes.id_filme
+GROUP BY tb_filmes.genero;
+
+-- Exercício 7
+SELECT tb_espectadores.nome 
+FROM tb_filmes JOIN tb_espectadores
+ON tb_espectadores.id_filme = tb_filmes.id_filme
+WHERE tb_filmes.genero = tb_espectadores.genero_favorito;
+
+-- Exercício 8
+SELECT tb_filmes.titulo, AVG(tb_espectadores.avaliacao) AS media_das_avaliacoes
+FROM tb_espectadores JOIN tb_filmes
+ON tb_espectadores.id_filme = tb_filmes.id_filme
+GROUP BY tb_filmes.titulo;
+
+-- Exercício 9
+SELECT tb_espectadores.nome
+FROM tb_espectadores JOIN tb_filmes
+ON tb_espectadores.id_filme = tb_filmes.id_filme
+WHERE tb_filmes.ano_lancamento > 2000 AND tb_espectadores.avaliacao > 8.5;
+
+-- Exercício 10
+SELECT tb_filmes.genero, COUNT(tb_espectadores.id_filme) AS quantidade_espectadores, AVG(tb_espectadores.avaliacao) AS avaliacao_media
+FROM tb_espectadores JOIN tb_filmes
+ON tb_espectadores.id_filme = tb_filmes.id_filme
+GROUP BY tb_filmes.genero
+HAVING avaliacao_media > 9;
