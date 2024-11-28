@@ -242,14 +242,26 @@ SELECT * FROM vw_produtos_lucro;
 -- 13
 CREATE VIEW vw_clientes_mais_lucrativos AS
 SELECT tb_cliente.nome_cliente, tb_cliente.telefone_cliente, tb_cliente.cidade, tb_cliente.estado, SUM(tb_produto.preco_venda - tb_produto.preco_compra) AS soma_lucro
-FROM tb_venda_produto JOIN tb_produto
-ON tb_venda_produto.PRODUTO_id_produto = tb_produto.id_produto
-WHERE tb_produto.estoque < 50 AND tb_cliente.estado = "SP" or "RJ" or "ES" or "MG"
-GROUP BY nome_cliente;
+FROM tb_cliente JOIN tb_venda ON tb_cliente.id_cliente = tb_venda.CLIENTE_id_cliente
+JOIN tb_venda_produto ON tb_venda_produto.VENDA_id_venda = tb_venda.id_venda
+JOIN tb_produto ON tb_produto.id_produto = tb_venda_produto.PRODUTO_produto_id
+WHERE tb_produto.estoque < 50 AND tb_cliente.estado = "SP" or "RJ" or "ES" or "MG";
+-- essa deu erro prof
 
-drop view vw_clientes_mais_lucrativos;
 SELECT * FROM vw_clientes_mais_lucrativos;
 
 -- 14
+SELECT nome_cliente,
+CASE mes_nascimento
+WHEN 1 THEN 'Janeiro'
+WHEN 3 THEN 'Março'
+WHEN 5 THEN 'Maio'
+WHEN 7 THEN 'Julho'
+WHEN 9 THEN 'Setembro'
+WHEN 11 THEN 'Novembro' END AS mes_nascimento
+FROM vw_clientes_aniversariantes
+WHERE mes_nascimento = 1 or 3 or 5 or 7 or 9 or 11
+ORDER BY mes_nascimento;
 
 -- 15
+SELECT nome_cliente, soma_lucro FROM vw_clientes_mais_lucrativos;
