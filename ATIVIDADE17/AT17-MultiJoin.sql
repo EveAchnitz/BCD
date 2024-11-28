@@ -199,15 +199,35 @@ WHERE cor_roupa = 'Vermelho';
 -- Exercício 6: Liste os nomes das categorias principais e suas respectivas roupas disponíveis. A saída deve conter o nome da categoria principal, o nome da subcategoria (se existir), e o nome da roupa.
 SELECT c1.nome AS categoria, c2.nome AS subcategoria, r.nome AS nome_roupa
 FROM tb_categoria c1 LEFT JOIN tb_categoria c2
-ON c1.id_categoria = c2.CATEGORIA_id_categoria
-JOIN tb_roupa r ON r.CATEGORIA_id_categoria = c2.id_categoria
-WHERE 
+ON c1.id_categoria = c2.CATEGORIA_id_categoria_pai
+JOIN tb_roupa r ON r.CATEGORIA_id_categoria = c2.id_categoria;
 
+-- Exercício 7: Crie uma view chamada vw_cores_populares que lista as cores com o total de roupas vendidas para cada uma.
+CREATE VIEW vw_cores_populares AS 
+SELECT c.nome AS nome_cor, SUM(pd.quantidade) AS total_vendido
+FROM tb_cor c JOIN tb_roupa r
+ON c.id_cor = r.COR_id_cor
+JOIN tb_pedido_roupa pd ON r.id_roupa = pd.ROUPA_id_roupa
+GROUP BY c.nome;
 
--- Atividade 7
+SELECT * FROM vw_cores_populares;
 
--- Atividade 8
+-- Exercício 8: Usando a view vw_cores_populares, liste as cores que venderam mais de 10 itens no total.
+SELECT nome_cor FROM vw_cores_populares 
+WHERE total_vendido > 10;
 
--- Atividade 9
+-- Exercício 9: Liste o nome completo dos clientes, o nome da roupa e a data do pedido para pedidos realizados entre "2024-11-01" e "2024-11-10".
+SELECT tb_cliente.primeiro_nome, tb_roupa.nome, tb_pedido_roupa.data_pedido 
+FROM tb_cliente c JOIN tb_pedido_roupa pd
+ON c.id_cliente = pd.CLIENTE_id_cliente
+JOIN tb_roupa r ON r.id_roupa = pd.ROUPA_id_roupa
+WHERE tb_pedido_roupa.data_pedido BETWEEN 2024-11-01 AND 2024-11-10;
 
--- Atividade 10
+-- Exercício 10: Liste o nome completo dos clientes, o nome da roupa comprada, e a categoria principal da roupa. Mostre apenas os pedidos feitos por clientes cuja cor favorita está disponível na roupa comprada.
+SELECT tb_cliente.primeiro_nome, tb_roupa.nome, tb_categoria.nome
+FROM tb_cliente JOIN tb_pedido_roupa 
+ON tb_cliente.id_cliente = tb_pedido_roupa.CLIENTE_id_cliente
+JOIN tb_roupa ON tb_roupa.id_roupa = tb_pedido_roupa.ROUPA_id_roupa
+JOIN tb_cor ON tb_cor.id_cor = tb_roupa.COR_id_cor 
+JOIN tb_categoria ON tb_categoria.id_categoria = tb_roupa.CATEGORIA_id_categoria
+WHERE tb_cliente.COR_id_cor_favorita = tb_roupa.COR_id_cor;
