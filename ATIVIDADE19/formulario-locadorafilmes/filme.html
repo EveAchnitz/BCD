@@ -11,7 +11,7 @@
         <h2>Cadastre o filme alugado</h2>
 
         <label for="nome">Nome do filme:</label>
-        <input type="text" name="nome" id="nome" required autofocus>
+        <input type="text" name="nome" id="nome" required autofocus><br>
 
         <label for="genero">Gênero do filme:</label>
         <select name="genero" id="genero" required>
@@ -23,7 +23,7 @@
             <option value="terror">Terror</option>
             <option value="suspense">Suspense</option>
             <option value="documentario">Documentário</option>
-        </select>
+        </select><br>
 
         <label for="classificacao">Classificação indicativa:</label>
         <input class="emlinha" type="radio" name="classificacao" id="livre">
@@ -31,15 +31,18 @@
         <input class="emlinha" type="radio" name="classificacao" id="10">
         <label class="emlinha" for="10">10</label>
         <input class="emlinha" type="radio" name="classificacao" id="12">
-        <label class="emlinha" for="12">12</label>
+        <label class="emlinha" for="12">12</label><br>
         <input class="emlinha" type="radio" name="classificacao" id="14">
         <label class="emlinha" for="14">14</label>
         <input class="emlinha" type="radio" name="classificacao" id="16">
         <label class="emlinha" for="16">16</label>
         <input class="emlinha" type="radio" name="classificacao" id="18">
-        <label class="emlinha" for="18">18</label>
+        <label class="emlinha" for="18">18</label><br>
 
-        <label></label>
+        <label for="preco" class="preco">Preço:</label>
+        <input type="number" name="preco" id="preco" class="preco" step="0.01"><br>
+
+        <input type="submit" name="enviar" value="Enviar" id="enviar">
 
     </form>
     
