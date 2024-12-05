@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <link rel="stylesheet" href="filme.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro MovieLovers</title>
+</head>
+<body>
+    <form action="" method="post">
+        <h2>Cadastre o filme alugado</h2>
+
+        <label for="nome">Nome do filme:</label>
+        <input type="text" name="nome" id="nome" required autofocus>
+
+        <label for="genero">Gênero do filme:</label>
+        <select name="genero" id="genero" required>
+            <option value="">Selecione...</option>
+            <option value="romance">Romance</option>
+            <option value="comedia">Comédia</option>
+            <option value="acao">Ação</option>
+            <option value="drama">Drama</option>
+            <option value="terror">Terror</option>
+            <option value="suspense">Suspense</option>
+            <option value="documentario">Documentário</option>
+        </select>
+
+        <label for="classificacao">Classificação indicativa:</label>
+        <input class="emlinha" type="radio" name="classificacao" id="livre">
+        <label class="emlinha" for="livre">Livre</label>
+
+    </form>
+    
+</body>
+</html>
